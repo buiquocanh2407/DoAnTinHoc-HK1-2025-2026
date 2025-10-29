@@ -9,3 +9,14 @@ D:\DoAn\StudentScoreAVL\StudentScoreAVL\obj\Debug\StudentScoreAVL.csproj.Generat
 D:\DoAn\StudentScoreAVL\StudentScoreAVL\obj\Debug\StudentScoreAVL.csproj.CoreCompileInputs.cache
 D:\DoAn\StudentScoreAVL\StudentScoreAVL\obj\Debug\StudentScoreAVL.exe
 D:\DoAn\StudentScoreAVL\StudentScoreAVL\obj\Debug\StudentScoreAVL.pdb
+D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\bin\Debug\StudentsPerformance.csv
+D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\bin\Debug\StudentScoreAVL.exe.config
+D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\bin\Debug\StudentScoreAVL.exe
+D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\bin\Debug\StudentScoreAVL.pdb
+D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\obj\Debug\StudentScoreAVL.csproj.AssemblyReference.cache
+D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\obj\Debug\StudentScoreAVL.MainForm.resources
+D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\obj\Debug\StudentScoreAVL.Properties.Resources.resources
+D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\obj\Debug\StudentScoreAVL.csproj.GenerateResource.cache
+D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\obj\Debug\StudentScoreAVL.csproj.CoreCompileInputs.cache
+D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\obj\Debug\StudentScoreAVL.exe
+D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\obj\Debug\StudentScoreAVL.pdb
