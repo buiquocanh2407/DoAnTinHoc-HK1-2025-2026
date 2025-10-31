@@ -8,6 +8,7 @@ namespace StudentScoreAVL
 {
         public class Student
         {
+            public int ID { get; set; }
             public string Gender { get; set; }
             public string RaceEthnicity { get; set; }
             public string ParentalEducation { get; set; }
