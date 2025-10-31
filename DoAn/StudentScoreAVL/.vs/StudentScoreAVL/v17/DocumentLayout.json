@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "D:\\DoAnTinHoc\\DoAn\\StudentScoreAVL\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{12D9DE84-A238-4388-84F8-A3A56744A144}|StudentScoreAVL\\StudentScoreAVL.csproj|D:\\DoAnTinHoc\\DoAn\\StudentScoreAVL\\studentscoreavl\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{12D9DE84-A238-4388-84F8-A3A56744A144}|StudentScoreAVL\\StudentScoreAVL.csproj|solutionrelative:studentscoreavl\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{12D9DE84-A238-4388-84F8-A3A56744A144}|StudentScoreAVL\\StudentScoreAVL.csproj|d:\\doantinhoc\\doan\\studentscoreavl\\studentscoreavl\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{12D9DE84-A238-4388-84F8-A3A56744A144}|StudentScoreAVL\\StudentScoreAVL.csproj|solutionrelative:studentscoreavl\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{12D9DE84-A238-4388-84F8-A3A56744A144}|StudentScoreAVL\\StudentScoreAVL.csproj|d:\\doantinhoc\\doan\\studentscoreavl\\studentscoreavl\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{12D9DE84-A238-4388-84F8-A3A56744A144}|StudentScoreAVL\\StudentScoreAVL.csproj|solutionrelative:studentscoreavl\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{12D9DE84-A238-4388-84F8-A3A56744A144}|StudentScoreAVL\\StudentScoreAVL.csproj|D:\\DoAnTinHoc\\DoAn\\StudentScoreAVL\\studentscoreavl\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{12D9DE84-A238-4388-84F8-A3A56744A144}|StudentScoreAVL\\StudentScoreAVL.csproj|solutionrelative:studentscoreavl\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{12D9DE84-A238-4388-84F8-A3A56744A144}|StudentScoreAVL\\StudentScoreAVL.csproj|d:\\doantinhoc\\doan\\studentscoreavl\\studentscoreavl\\avltree.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{12D9DE84-A238-4388-84F8-A3A56744A144}|StudentScoreAVL\\StudentScoreAVL.csproj|D:\\DoAnTinHoc\\DoAn\\StudentScoreAVL\\studentscoreavl\\avltree.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{12D9DE84-A238-4388-84F8-A3A56744A144}|StudentScoreAVL\\StudentScoreAVL.csproj|solutionrelative:studentscoreavl\\avltree.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12D9DE84-A238-4388-84F8-A3A56744A144}|StudentScoreAVL\\StudentScoreAVL.csproj|D:\\DoAnTinHoc\\DoAn\\StudentScoreAVL\\studentscoreavl\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12D9DE84-A238-4388-84F8-A3A56744A144}|StudentScoreAVL\\StudentScoreAVL.csproj|solutionrelative:studentscoreavl\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,50 +26,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "AVLTree.cs",
               "DocumentMoniker": "D:\\DoAnTinHoc\\DoAn\\StudentScoreAVL\\StudentScoreAVL\\AVLTree.cs",
               "RelativeDocumentMoniker": "StudentScoreAVL\\AVLTree.cs",
               "ToolTip": "D:\\DoAnTinHoc\\DoAn\\StudentScoreAVL\\StudentScoreAVL\\AVLTree.cs",
               "RelativeToolTip": "StudentScoreAVL\\AVLTree.cs",
-              "ViewState": "AQIAAGkAAAAAAAAAAAAwwIIAAAAAAAAA",
+              "ViewState": "AQIAAH4AAAAAAAAAAAAswIAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-29T05:14:08.381Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Student.cs",
               "DocumentMoniker": "D:\\DoAnTinHoc\\DoAn\\StudentScoreAVL\\StudentScoreAVL\\Student.cs",
               "RelativeDocumentMoniker": "StudentScoreAVL\\Student.cs",
               "ToolTip": "D:\\DoAnTinHoc\\DoAn\\StudentScoreAVL\\StudentScoreAVL\\Student.cs",
               "RelativeToolTip": "StudentScoreAVL\\Student.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAAAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAkAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-29T05:07:47.68Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Form1.cs",
               "DocumentMoniker": "D:\\DoAnTinHoc\\DoAn\\StudentScoreAVL\\StudentScoreAVL\\Form1.cs",
               "RelativeDocumentMoniker": "StudentScoreAVL\\Form1.cs",
               "ToolTip": "D:\\DoAnTinHoc\\DoAn\\StudentScoreAVL\\StudentScoreAVL\\Form1.cs",
               "RelativeToolTip": "StudentScoreAVL\\Form1.cs",
-              "ViewState": "AQIAAKYAAAAAAAAAAAAwwJwAAABNAAAA",
+              "ViewState": "AQIAAIcAAAAAAAAAAAAowJgAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-21T05:58:30.329Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "D:\\DoAnTinHoc\\DoAn\\StudentScoreAVL\\StudentScoreAVL\\Form1.cs",
               "RelativeDocumentMoniker": "StudentScoreAVL\\Form1.cs",
