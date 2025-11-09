@@ -30,7 +30,7 @@ namespace StudentScoreAVL
             return node == null ? 0 : node.Height;
         }
 
-        private int GetBalance(AVLNode node)
+        private int Balance(AVLNode node)
         {
             return node == null ? 0 : Height(node.Left) - Height(node.Right);
         }
@@ -83,7 +83,7 @@ namespace StudentScoreAVL
 
             node.Height = 1 + Math.Max(Height(node.Left), Height(node.Right));
 
-            int balance = GetBalance(node);
+            int balance = Balance(node);
 
             // Left Left
             if (balance > 1 && data.ID < node.Left.Data.ID)
@@ -230,20 +230,20 @@ namespace StudentScoreAVL
             if (root == null)
                 return root;
             root.Height = 1 + Math.Max(Height(root.Left), Height(root.Right));
-            int balance = GetBalance(root);
-            if (balance > 1 && GetBalance(root.Left) >= 0)
+            int balance = Balance(root);
+            if (balance > 1 && Balance(root.Left) >= 0)
                 return RightRotate(root);
 
-            if (balance > 1 && GetBalance(root.Left) < 0)
+            if (balance > 1 && Balance(root.Left) < 0)
             {
                 root.Left = LeftRotate(root.Left);
                 return RightRotate(root);
             }
 
-            if (balance < -1 && GetBalance(root.Right) <= 0)
+            if (balance < -1 && Balance(root.Right) <= 0)
                 return LeftRotate(root);
 
-            if (balance < -1 && GetBalance(root.Right) > 0)
+            if (balance < -1 && Balance(root.Right) > 0)
             {
                 root.Right = RightRotate(root.Right);
                 return LeftRotate(root);
@@ -286,6 +286,30 @@ namespace StudentScoreAVL
                 return true;
             }
         }
+        public List<Student> XepTang(int targetLevel)
+    {
+            List<Student> result = new List<Student>();
+            if (Root == null) return result;
+
+            Queue<(AVLNode node, int level)> queue = new Queue<(AVLNode, int)>();
+            queue.Enqueue((Root, 0));
+
+            while (queue.Count > 0)
+            {
+                 var (node, level) = queue.Dequeue();
+
+                if (level == targetLevel)
+            result.Add(node.Data);
+
+                if (node.Left != null)
+                queue.Enqueue((node.Left, level + 1));
+                if (node.Right != null)
+            queue.Enqueue((node.Right, level + 1));
+            }
+
+            return result;
+        }
+
 
     }
 }

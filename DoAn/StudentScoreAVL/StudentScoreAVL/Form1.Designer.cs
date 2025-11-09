@@ -54,12 +54,22 @@
             this.btnThongKe = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.CbbGender = new System.Windows.Forms.ComboBox();
+            this.btnXuatTang = new System.Windows.Forms.Button();
+            this.txtXuatTang = new System.Windows.Forms.TextBox();
+            this.lblXuatTang = new System.Windows.Forms.Label();
+            this.btnThoat = new System.Windows.Forms.Button();
+            this.btnChonDong = new System.Windows.Forms.Button();
+            this.txtRangeDong = new System.Windows.Forms.TextBox();
+            this.DGV2 = new System.Windows.Forms.DataGridView();
+            this.txtXuat = new System.Windows.Forms.TextBox();
+            this.btnXuat = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGV2)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(711, 0);
+            this.button1.Location = new System.Drawing.Point(1252, 9);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(87, 23);
             this.button1.TabIndex = 0;
@@ -74,12 +84,12 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(795, 120);
+            this.dataGridView1.Size = new System.Drawing.Size(1346, 208);
             this.dataGridView1.TabIndex = 1;
             // 
             // btnluu
             // 
-            this.btnluu.Location = new System.Drawing.Point(711, 29);
+            this.btnluu.Location = new System.Drawing.Point(1252, 38);
             this.btnluu.Name = "btnluu";
             this.btnluu.Size = new System.Drawing.Size(87, 23);
             this.btnluu.TabIndex = 2;
@@ -256,7 +266,7 @@
             // 
             // btnThongKe
             // 
-            this.btnThongKe.Location = new System.Drawing.Point(711, 57);
+            this.btnThongKe.Location = new System.Drawing.Point(1252, 67);
             this.btnThongKe.Name = "btnThongKe";
             this.btnThongKe.Size = new System.Drawing.Size(87, 30);
             this.btnThongKe.TabIndex = 24;
@@ -286,11 +296,100 @@
             this.CbbGender.Size = new System.Drawing.Size(232, 24);
             this.CbbGender.TabIndex = 26;
             // 
+            // btnXuatTang
+            // 
+            this.btnXuatTang.Location = new System.Drawing.Point(1127, 3);
+            this.btnXuatTang.Name = "btnXuatTang";
+            this.btnXuatTang.Size = new System.Drawing.Size(119, 28);
+            this.btnXuatTang.TabIndex = 27;
+            this.btnXuatTang.Text = "Xuất tầng";
+            this.btnXuatTang.UseVisualStyleBackColor = true;
+            this.btnXuatTang.Click += new System.EventHandler(this.btnXuatTang_Click);
+            // 
+            // txtXuatTang
+            // 
+            this.txtXuatTang.Location = new System.Drawing.Point(961, 6);
+            this.txtXuatTang.Name = "txtXuatTang";
+            this.txtXuatTang.Size = new System.Drawing.Size(160, 22);
+            this.txtXuatTang.TabIndex = 28;
+            // 
+            // lblXuatTang
+            // 
+            this.lblXuatTang.AutoSize = true;
+            this.lblXuatTang.Location = new System.Drawing.Point(868, 9);
+            this.lblXuatTang.Name = "lblXuatTang";
+            this.lblXuatTang.Size = new System.Drawing.Size(87, 16);
+            this.lblXuatTang.TabIndex = 29;
+            this.lblXuatTang.Text = "Nhập số tầng";
+            // 
+            // btnThoat
+            // 
+            this.btnThoat.Location = new System.Drawing.Point(1264, 308);
+            this.btnThoat.Name = "btnThoat";
+            this.btnThoat.Size = new System.Drawing.Size(75, 23);
+            this.btnThoat.TabIndex = 30;
+            this.btnThoat.Text = "Thoát";
+            this.btnThoat.UseVisualStyleBackColor = true;
+            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
+            // 
+            // btnChonDong
+            // 
+            this.btnChonDong.Location = new System.Drawing.Point(1184, 103);
+            this.btnChonDong.Name = "btnChonDong";
+            this.btnChonDong.Size = new System.Drawing.Size(155, 23);
+            this.btnChonDong.TabIndex = 31;
+            this.btnChonDong.Text = "Range Dòng";
+            this.btnChonDong.UseVisualStyleBackColor = true;
+            this.btnChonDong.Click += new System.EventHandler(this.btnChonDong_Click);
+            // 
+            // txtRangeDong
+            // 
+            this.txtRangeDong.Location = new System.Drawing.Point(1002, 104);
+            this.txtRangeDong.Name = "txtRangeDong";
+            this.txtRangeDong.Size = new System.Drawing.Size(167, 22);
+            this.txtRangeDong.TabIndex = 32;
+            // 
+            // DGV2
+            // 
+            this.DGV2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGV2.Location = new System.Drawing.Point(3, 337);
+            this.DGV2.Name = "DGV2";
+            this.DGV2.RowHeadersWidth = 51;
+            this.DGV2.RowTemplate.Height = 24;
+            this.DGV2.Size = new System.Drawing.Size(1336, 208);
+            this.DGV2.TabIndex = 33;
+            // 
+            // txtXuat
+            // 
+            this.txtXuat.Location = new System.Drawing.Point(1002, 152);
+            this.txtXuat.Name = "txtXuat";
+            this.txtXuat.Size = new System.Drawing.Size(167, 22);
+            this.txtXuat.TabIndex = 34;
+            // 
+            // btnXuat
+            // 
+            this.btnXuat.Location = new System.Drawing.Point(1184, 145);
+            this.btnXuat.Name = "btnXuat";
+            this.btnXuat.Size = new System.Drawing.Size(155, 29);
+            this.btnXuat.TabIndex = 35;
+            this.btnXuat.Text = "Xuất tầng cây ";
+            this.btnXuat.UseVisualStyleBackColor = true;
+            this.btnXuat.Click += new System.EventHandler(this.btnXuat_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1340, 546);
+            this.Controls.Add(this.btnXuat);
+            this.Controls.Add(this.txtXuat);
+            this.Controls.Add(this.DGV2);
+            this.Controls.Add(this.txtRangeDong);
+            this.Controls.Add(this.btnChonDong);
+            this.Controls.Add(this.btnThoat);
+            this.Controls.Add(this.lblXuatTang);
+            this.Controls.Add(this.txtXuatTang);
+            this.Controls.Add(this.btnXuatTang);
             this.Controls.Add(this.CbbGender);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnThongKe);
@@ -321,6 +420,7 @@
             this.Text = "Quản lí điểm sinh viên";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGV2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -354,6 +454,15 @@
         private System.Windows.Forms.Button btnThongKe;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.ComboBox CbbGender;
+        private System.Windows.Forms.Button btnXuatTang;
+        private System.Windows.Forms.TextBox txtXuatTang;
+        private System.Windows.Forms.Label lblXuatTang;
+        private System.Windows.Forms.Button btnThoat;
+        private System.Windows.Forms.Button btnChonDong;
+        private System.Windows.Forms.TextBox txtRangeDong;
+        private System.Windows.Forms.DataGridView DGV2;
+        private System.Windows.Forms.TextBox txtXuat;
+        private System.Windows.Forms.Button btnXuat;
     }
 }
 
