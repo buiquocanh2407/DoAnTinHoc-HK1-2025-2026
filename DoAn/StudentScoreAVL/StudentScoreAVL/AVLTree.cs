@@ -9,7 +9,7 @@ namespace StudentScoreAVL
     public class AVLNode
     {
         public Student Data;
-        public int Key => Data.ID;
+        public double Key => Data.Van;
         public AVLNode Left;
         public AVLNode Right;
         public int Height;
@@ -74,9 +74,9 @@ namespace StudentScoreAVL
                 return new AVLNode(data);
 
 
-            if (data.ID < node.Data.ID)
+            if (data.Van < node.Data.Van)
                 node.Left = Insert(node.Left, data);
-            else if (data.ID > node.Data.ID)
+            else if (data.Van > node.Data.Van)
                 node.Right = Insert(node.Right, data);
             else
                 return node;
@@ -86,22 +86,22 @@ namespace StudentScoreAVL
             int balance = Balance(node);
 
             // Left Left
-            if (balance > 1 && data.ID < node.Left.Data.ID)
+            if (balance > 1 && data.Van < node.Left.Data.Van)
                 return RightRotate(node);
 
             // Right Right
-            if (balance < -1 && data.ID > node.Right.Data.ID)
+            if (balance < -1 && data.Van > node.Right.Data.Van)
                 return LeftRotate(node);
 
             // Left Right
-            if (balance > 1 && data.ID > node.Left.Data.ID)
+            if (balance > 1 && data.Van > node.Left.Data.ID)
             {
                 node.Left = LeftRotate(node.Left);
                 return RightRotate(node);
             }
 
             // Right Left
-            if (balance < -1 && data.ID < node.Right.Data.ID)
+            if (balance < -1 && data.Van < node.Right.Data.Van)
             {
                 node.Right = RightRotate(node.Right);
                 return LeftRotate(node);
@@ -261,30 +261,31 @@ namespace StudentScoreAVL
         }
         public bool Sua(Student updatedStudent)
         {
-            return Sua(Root, updatedStudent);
-        }
+            AVLNode node = Root;
 
-        private bool Sua(AVLNode node, Student updatedStudent)
-        {
-            if (node == null)
-                return false;
-
-            if (updatedStudent.ID < node.Data.ID)
-                return Sua(node.Left, updatedStudent);
-            else if (updatedStudent.ID > node.Data.ID)
-                return Sua(node.Right, updatedStudent);
-            else
+            while (node != null)
             {
-                node.Data.Gender = updatedStudent.Gender;
-                node.Data.RaceEthnicity = updatedStudent.RaceEthnicity;
-                node.Data.ParentalEducation = updatedStudent.ParentalEducation;
-                node.Data.Lunch = updatedStudent.Lunch;
-                node.Data.TestPreparationCourse = updatedStudent.TestPreparationCourse;
-                node.Data.MathScore = updatedStudent.MathScore;
-                node.Data.ReadingScore = updatedStudent.ReadingScore;
-                node.Data.WritingScore = updatedStudent.WritingScore;
-                return true;
+                if (updatedStudent.ID < node.Data.ID)
+                    node = node.Left;
+                else if (updatedStudent.ID > node.Data.ID)
+                    node = node.Right;
+                else
+                {
+                    // Tìm thấy node => update giá trị
+                    node.Data.Gender = updatedStudent.Gender;
+                    node.Data.RaceEthnicity = updatedStudent.RaceEthnicity;
+                    node.Data.ParentalEducation = updatedStudent.ParentalEducation;
+                    node.Data.Lunch = updatedStudent.Lunch;
+                    node.Data.TestPreparationCourse = updatedStudent.TestPreparationCourse;
+                    node.Data.MathScore = updatedStudent.MathScore;
+                    node.Data.ReadingScore = updatedStudent.ReadingScore;
+                    node.Data.WritingScore = updatedStudent.WritingScore;
+
+                    return true;
+                }
             }
+
+            return false; // không tìm thấy ID
         }
         public List<Student> XepTang(int targetLevel)
     {
@@ -309,7 +310,55 @@ namespace StudentScoreAVL
 
             return result;
         }
-
-
+        public double SumMath(AVLNode node)
+        {
+            if(node==null) return 0;
+            return SumMath(node.Left)+node.Data.MathScore+SumMath(node.Right);
+        }
+        public int DemLa(AVLNode node)
+        {
+            int tong = 0;
+            if (node==null) return 0;
+            if (node.Left == null & node.Right == null)
+                tong++;
+            tong+=DemLa(node.Left);
+            tong+=DemLa(node.Right);
+            return tong;
+        }
+        public int Nut1Con(AVLNode node)
+        {
+            int tong = 0;
+            if (node==null) return 0;
+            bool left = node.Left != null;
+            bool right=node.Right != null;
+            if (left && !right || right && !left)
+                tong++;
+            tong += Nut1Con(node.Left);
+            tong+= Nut1Con(node.Right);
+            return tong;
+        }
+        public int Nut2Con(AVLNode node)
+        {
+            int tong = 0;
+            if(node==null) return 0;
+            if (node.Left != null && node.Right != null)
+                tong++;
+            tong += Nut2Con(node.Left);
+            tong+=Nut2Con(node.Right);
+            return tong;
+        }
+        public int ChieuCao(AVLNode node)
+        {
+            if (node == null) return 0;
+            return 1+Math.Max(ChieuCao(node.Left),ChieuCao(node.Right));
+        }
+        public void LNR(AVLNode node,List<Student> list)
+        {
+            if (node == null) return;
+            LNR(node.Left, list);
+            list.Add(node.Data);
+            LNR(node.Right, list);
+        }
     }
+
 }

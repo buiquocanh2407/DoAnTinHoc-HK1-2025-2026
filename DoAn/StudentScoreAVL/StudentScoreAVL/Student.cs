@@ -17,6 +17,7 @@ namespace StudentScoreAVL
             public double MathScore { get; set; }
             public double ReadingScore { get; set; }
             public double WritingScore { get; set; }
-        }
+            public double Van { get; set; }
+    }
 
 }

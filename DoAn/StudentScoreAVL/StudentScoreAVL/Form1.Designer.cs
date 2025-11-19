@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnTaiCSV = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnluu = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -59,23 +59,26 @@
             this.lblXuatTang = new System.Windows.Forms.Label();
             this.btnThoat = new System.Windows.Forms.Button();
             this.btnChonDong = new System.Windows.Forms.Button();
-            this.txtRangeDong = new System.Windows.Forms.TextBox();
+            this.txtRangeDongDau = new System.Windows.Forms.TextBox();
             this.DGV2 = new System.Windows.Forms.DataGridView();
             this.txtXuat = new System.Windows.Forms.TextBox();
             this.btnXuat = new System.Windows.Forms.Button();
+            this.RangeDongCuoi = new System.Windows.Forms.TextBox();
+            this.lbldau = new System.Windows.Forms.Label();
+            this.lblcuoi = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGV2)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // btnTaiCSV
             // 
-            this.button1.Location = new System.Drawing.Point(1252, 9);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(87, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Tải CSV";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnTaiCSV.Location = new System.Drawing.Point(1252, 9);
+            this.btnTaiCSV.Name = "btnTaiCSV";
+            this.btnTaiCSV.Size = new System.Drawing.Size(87, 23);
+            this.btnTaiCSV.TabIndex = 0;
+            this.btnTaiCSV.Text = "Tải CSV";
+            this.btnTaiCSV.UseVisualStyleBackColor = true;
+            this.btnTaiCSV.Click += new System.EventHandler(this.button1_Click);
             // 
             // dataGridView1
             // 
@@ -342,12 +345,12 @@
             this.btnChonDong.UseVisualStyleBackColor = true;
             this.btnChonDong.Click += new System.EventHandler(this.btnChonDong_Click);
             // 
-            // txtRangeDong
+            // txtRangeDongDau
             // 
-            this.txtRangeDong.Location = new System.Drawing.Point(1002, 104);
-            this.txtRangeDong.Name = "txtRangeDong";
-            this.txtRangeDong.Size = new System.Drawing.Size(167, 22);
-            this.txtRangeDong.TabIndex = 32;
+            this.txtRangeDongDau.Location = new System.Drawing.Point(759, 106);
+            this.txtRangeDongDau.Name = "txtRangeDongDau";
+            this.txtRangeDongDau.Size = new System.Drawing.Size(167, 22);
+            this.txtRangeDongDau.TabIndex = 32;
             // 
             // DGV2
             // 
@@ -376,15 +379,43 @@
             this.btnXuat.UseVisualStyleBackColor = true;
             this.btnXuat.Click += new System.EventHandler(this.btnXuat_Click);
             // 
+            // RangeDongCuoi
+            // 
+            this.RangeDongCuoi.Location = new System.Drawing.Point(1002, 106);
+            this.RangeDongCuoi.Name = "RangeDongCuoi";
+            this.RangeDongCuoi.Size = new System.Drawing.Size(155, 22);
+            this.RangeDongCuoi.TabIndex = 36;
+            // 
+            // lbldau
+            // 
+            this.lbldau.AutoSize = true;
+            this.lbldau.Location = new System.Drawing.Point(713, 110);
+            this.lbldau.Name = "lbldau";
+            this.lbldau.Size = new System.Drawing.Size(40, 16);
+            this.lbldau.TabIndex = 37;
+            this.lbldau.Text = "Dòng";
+            // 
+            // lblcuoi
+            // 
+            this.lblcuoi.AutoSize = true;
+            this.lblcuoi.Location = new System.Drawing.Point(932, 110);
+            this.lblcuoi.Name = "lblcuoi";
+            this.lblcuoi.Size = new System.Drawing.Size(64, 16);
+            this.lblcuoi.TabIndex = 38;
+            this.lblcuoi.Text = "đến dòng";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1340, 546);
+            this.Controls.Add(this.lblcuoi);
+            this.Controls.Add(this.lbldau);
+            this.Controls.Add(this.RangeDongCuoi);
             this.Controls.Add(this.btnXuat);
             this.Controls.Add(this.txtXuat);
             this.Controls.Add(this.DGV2);
-            this.Controls.Add(this.txtRangeDong);
+            this.Controls.Add(this.txtRangeDongDau);
             this.Controls.Add(this.btnChonDong);
             this.Controls.Add(this.btnThoat);
             this.Controls.Add(this.lblXuatTang);
@@ -415,10 +446,9 @@
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnluu);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnTaiCSV);
             this.Name = "MainForm";
             this.Text = "Quản lí điểm sinh viên";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGV2)).EndInit();
             this.ResumeLayout(false);
@@ -428,7 +458,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnTaiCSV;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnluu;
         private System.Windows.Forms.Button btnDelete;
@@ -459,10 +489,13 @@
         private System.Windows.Forms.Label lblXuatTang;
         private System.Windows.Forms.Button btnThoat;
         private System.Windows.Forms.Button btnChonDong;
-        private System.Windows.Forms.TextBox txtRangeDong;
+        private System.Windows.Forms.TextBox txtRangeDongDau;
         private System.Windows.Forms.DataGridView DGV2;
         private System.Windows.Forms.TextBox txtXuat;
         private System.Windows.Forms.Button btnXuat;
+        private System.Windows.Forms.TextBox RangeDongCuoi;
+        private System.Windows.Forms.Label lbldau;
+        private System.Windows.Forms.Label lblcuoi;
     }
 }
 
