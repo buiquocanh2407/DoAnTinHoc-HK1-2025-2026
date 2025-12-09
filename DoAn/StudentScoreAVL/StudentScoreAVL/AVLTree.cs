@@ -9,7 +9,7 @@ namespace StudentScoreAVL
     public class AVLNode
     {
         public Student Data;
-        public double Key => Data.Van;
+        public double Key => Data.ID;
         public AVLNode Left;
         public AVLNode Right;
         public int Height;
@@ -74,9 +74,9 @@ namespace StudentScoreAVL
                 return new AVLNode(data);
 
 
-            if (data.Van < node.Data.Van)
+            if (data.ID < node.Data.ID)
                 node.Left = Insert(node.Left, data);
-            else if (data.Van > node.Data.Van)
+            else if (data.ID > node.Data.ID)
                 node.Right = Insert(node.Right, data);
             else
                 return node;
@@ -86,22 +86,22 @@ namespace StudentScoreAVL
             int balance = Balance(node);
 
             // Left Left
-            if (balance > 1 && data.Van < node.Left.Data.Van)
+            if (balance > 1 && data.ID < node.Left.Data.ID)
                 return RightRotate(node);
 
             // Right Right
-            if (balance < -1 && data.Van > node.Right.Data.Van)
+            if (balance < -1 && data.ID > node.Right.Data.ID)
                 return LeftRotate(node);
 
             // Left Right
-            if (balance > 1 && data.Van > node.Left.Data.ID)
+            if (balance > 1 && data.ID > node.Left.Data.ID)
             {
                 node.Left = LeftRotate(node.Left);
                 return RightRotate(node);
             }
 
             // Right Left
-            if (balance < -1 && data.Van < node.Right.Data.Van)
+            if (balance < -1 && data.ID < node.Right.Data.ID)
             {
                 node.Right = RightRotate(node.Right);
                 return LeftRotate(node);
@@ -271,7 +271,6 @@ namespace StudentScoreAVL
                     node = node.Right;
                 else
                 {
-                    // Tìm thấy node => update giá trị
                     node.Data.Gender = updatedStudent.Gender;
                     node.Data.RaceEthnicity = updatedStudent.RaceEthnicity;
                     node.Data.ParentalEducation = updatedStudent.ParentalEducation;
@@ -285,7 +284,7 @@ namespace StudentScoreAVL
                 }
             }
 
-            return false; // không tìm thấy ID
+            return false;
         }
         public List<Student> XepTang(int targetLevel)
     {
@@ -359,6 +358,80 @@ namespace StudentScoreAVL
             list.Add(node.Data);
             LNR(node.Right, list);
         }
+        //Xây cây theo key khác
+        public void InsertByKey(Student data, Func<Student, double> keySelector)
+        {
+            Root = InsertByKey(Root, data, keySelector);
+        }
+
+        private AVLNode InsertByKey(AVLNode node, Student data, Func<Student, double> keySelector)
+        {
+            if (node == null)
+                return new AVLNode(data);
+
+            double newKey = keySelector(data);
+            double nodeKey = keySelector(node.Data);
+
+            //cho nhiều node cùng key nhưng khác ID
+            if (newKey < nodeKey || (newKey == nodeKey && data.ID < node.Data.ID))
+                node.Left = InsertByKey(node.Left, data, keySelector);
+            else if (newKey > nodeKey || (newKey == nodeKey && data.ID > node.Data.ID))
+                node.Right = InsertByKey(node.Right, data, keySelector);
+            else
+                return node; // trùng cả key và ID thì bỏ qua
+            node.Height = 1 + Math.Max(Height(node.Left), Height(node.Right));
+            int balance = Balance(node);
+            if (balance > 1 && (newKey < keySelector(node.Left.Data) ||
+                                (newKey == keySelector(node.Left.Data) && data.ID < node.Left.Data.ID)))
+                return RightRotate(node);
+            if (balance < -1 && (newKey > keySelector(node.Right.Data) ||
+                                 (newKey == keySelector(node.Right.Data) && data.ID > node.Right.Data.ID)))
+                return LeftRotate(node);
+            if (balance > 1 && (newKey > keySelector(node.Left.Data) ||
+                                (newKey == keySelector(node.Left.Data) && data.ID > node.Left.Data.ID)))
+            {
+                node.Left = LeftRotate(node.Left);
+                return RightRotate(node);
+            }
+            if (balance < -1 && (newKey < keySelector(node.Right.Data) ||
+                                 (newKey == keySelector(node.Right.Data) && data.ID < node.Right.Data.ID)))
+            {
+                node.Right = RightRotate(node.Right);
+                return LeftRotate(node);
+            }
+            return node;
+        }
+
+        //Cây trùng với k trùng
+        public void XayCay(Func<Student, double> keySelector,out AVLTree treeUnique,out AVLTree treeDuplicate)
+        {
+            treeUnique = new AVLTree();
+            treeDuplicate = new AVLTree();
+
+            Dictionary<double, int> count = new Dictionary<double, int>();
+
+            var list = InOrderTraversal();
+
+            foreach (var s in list)
+            {
+                double key = keySelector(s);
+
+                if (!count.ContainsKey(key))
+                    count[key] = 0;
+
+                count[key]++;
+
+                if (count[key] == 1)
+                {                
+                    treeUnique.InsertByKey(s, keySelector);
+                }
+                else
+                {
+                    treeDuplicate.InsertByKey(s, keySelector);
+                }
+            }
+        }
+
     }
 
 }

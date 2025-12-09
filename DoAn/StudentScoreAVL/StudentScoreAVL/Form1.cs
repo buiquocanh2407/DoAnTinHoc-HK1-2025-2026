@@ -10,11 +10,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 
+
 namespace StudentScoreAVL
 {
     public partial class MainForm : Form
     {
         string DataFilePath = "StudentsPerformance.csv";
+        AVLTree CAYKHONGTRUNG;
+        AVLTree CAYBITRUNG;
         AVLTree avlTree = new AVLTree();
         AVLTree tempTree = null;
         List<Student> students = new List<Student>();
@@ -22,18 +25,10 @@ namespace StudentScoreAVL
         public MainForm()
         {
             InitializeComponent();
-            LoadCSVData();
-            string csvFilePath = "StudentsPerformance.csv";
-            var csvData = ReadCsvFile(csvFilePath); 
-            foreach (var row in csvData)
-            {
-                Console.WriteLine(string.Join(",", row));
-            }
         }
         private void LoadCSVData()
         {
-            avlTree = new AVLTree();
-            List<Student> students = new List<Student>();
+            students =new List<Student>();
             foreach (var line in File.ReadLines(DataFilePath).Skip(1))
             {
                 var v = line.Split(',');
@@ -51,49 +46,33 @@ namespace StudentScoreAVL
                     Van = (v.Length > 9 && double.TryParse(v[9], out double tmpVan)) ? tmpVan : 0
                 });
             }
-            foreach (var s in students)
-                avlTree.Insert(s);
+            BuildAVLFromList();
             dataGridView1.DataSource = students;
         }
-        private List<string[]> ReadCsvFile(string filePath)
+        private void BuildAVLFromList()
         {
-            List<string[]> rows = new List<string[]>();
-            try
-            {
-                string[] lines = File.ReadAllLines(filePath);
-                foreach (string line in lines)
-                {
-                    string[] values = line.Split(',');
-                    rows.Add(values);
-                }
-                MessageBox.Show("CSV file read successfully!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error: {ex.Message}");
-            }
-            return rows;
+            avlTree = new AVLTree();
+            foreach (var s in students)
+                avlTree.Insert(s);
         }
         private void button1_Click(object sender, EventArgs e)
         {
             LoadCSVData();
             dataGridView1.Visible = true;
-            DGV2.Visible = false;
+            
         }
         //Lưu
-            private void SaveToCSV()
+            private void SaveToCSV(string path)
             {
-                var list = avlTree.InOrderTraversal();
-
-                using (StreamWriter w = new StreamWriter(DataFilePath))
+            using (StreamWriter w = new StreamWriter(path))
+            {
+                w.WriteLine("ID,Gender,RaceEthnicity,ParentalEducation,Lunch,TestPreparationCourse,MathScore,ReadingScore,WritingScore,Van");
+                foreach (var s in students)
                 {
-                    w.WriteLine("ID,Gender,RaceEthnicity,ParentalEducation,Lunch,TestPreparationCourse,MathScore,ReadingScore,WritingScore,Van");
-
-                    foreach (var s in list)
-                    {
                     w.WriteLine($"{s.ID},{s.Gender},{s.RaceEthnicity},{s.ParentalEducation},{s.Lunch},{s.TestPreparationCourse},{s.MathScore},{s.ReadingScore},{s.WritingScore},{s.Van}");
-                    }
                 }
+            }
+            MessageBox.Show("Lưu thành công","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
         private void btnluu_Click(object sender, EventArgs e)
         {
@@ -104,8 +83,8 @@ namespace StudentScoreAVL
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = saveFileDialog.FileName;
-                SaveToCSV();
-                MessageBox.Show("Đã lưu file CSV!");
+                SaveToCSV(filePath);
+                MessageBox.Show("Đã lưu file CSV");
             }
         }
         //Tìm kiếm
@@ -114,7 +93,7 @@ namespace StudentScoreAVL
             string nhap = txtSearch.Text;
             if (string.IsNullOrEmpty(nhap))
             {
-                MessageBox.Show("Vui lòng nhập ID học sinh để tìm!", "Thông báo");
+                MessageBox.Show("Vui lòng nhập ID học sinh để tìm!", "Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 return;
             }
             if (!int.TryParse(nhap, out int id))
@@ -125,19 +104,11 @@ namespace StudentScoreAVL
             Student student = avlTree.Search(id);
             if (student == null)
             {
-                MessageBox.Show("Không tìm thấy học sinh có ID này!", "Kết quả");
+                MessageBox.Show("Không tìm thấy học sinh có ID này!", "Kết quả",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 return;
             }
             dataGridView1.DataSource = new List<Student> { student };
-            CbbGender.SelectedIndex = CbbGender.FindStringExact(student.Gender);
-            txtRace.Text = student.RaceEthnicity;
-            txtEducation.Text = student.ParentalEducation;
-            txtLunch.Text = student.Lunch;
-            txtTest.Text = student.TestPreparationCourse;
-            txtMath.Text = student.MathScore.ToString();
-            txtReading.Text = student.ReadingScore.ToString();
-            txtWriting.Text = student.WritingScore.ToString();
-            currentStudent = student;
+            
         }
         //Thêm
         private void btnAdd_Click(object sender, EventArgs e)
@@ -156,7 +127,7 @@ namespace StudentScoreAVL
                 }
                 if (avlTree.Search(newID) != null)
                 {
-                    MessageBox.Show("ID trùng.");
+                    MessageBox.Show("ID trùng.","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     return;
                 }
                 if (CbbGender.SelectedItem == null ||
@@ -178,7 +149,7 @@ namespace StudentScoreAVL
                     MessageBox.Show("Điểm phải là số!");
                     return;
                 }
-                Student newStudent = new Student
+                Student sd = new Student
                 {
                     ID = newID,
                     Gender = CbbGender.SelectedItem.ToString(),
@@ -190,9 +161,9 @@ namespace StudentScoreAVL
                     ReadingScore = reading,
                     WritingScore = writing
                 };
-                avlTree.Insert(newStudent);
-                SaveToCSV();
-                LoadCSVData();
+                students.Add(sd);
+                BuildAVLFromList();
+                dataGridView1.DataSource = students.ToList();
                 MessageBox.Show("✔️ Thêm học sinh thành công!");
             }
             catch (Exception ex)
@@ -203,36 +174,39 @@ namespace StudentScoreAVL
         //Xóa
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtSearch.Text.Trim()))
+            if (string.IsNullOrWhiteSpace(txtSearch.Text))
             {
                 MessageBox.Show("Vui lòng nhập ID học sinh cần xóa!");
                 return;
             }
+
             if (!int.TryParse(txtSearch.Text.Trim(), out int id))
             {
                 MessageBox.Show("ID phải là số nguyên!");
                 return;
             }
-            Student student = avlTree.Search(id);
+            var student = students.FirstOrDefault(s => s.ID == id);
             if (student == null)
             {
                 MessageBox.Show("Không tìm thấy học sinh có ID này!");
                 return;
             }
+
             var xacnhan = MessageBox.Show(
                 $"Bạn có chắc muốn xóa học sinh ID {id} không?",
                 "Xác nhận xóa",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
             );
+
             if (xacnhan == DialogResult.Yes)
             {
-                avlTree.Delete(id);
-                SaveToCSV();
-                LoadCSVData();
-                MessageBox.Show("Đã xóa học sinh thành công!");
+                students.Remove(student);
+                BuildAVLFromList();
+                dataGridView1.DataSource = null;
+                dataGridView1.DataSource = students.ToList();
             }
-        }
+            }
         //Số lượng các node
         private void btnThongKe_Click(object sender, EventArgs e)
         {
@@ -283,8 +257,8 @@ namespace StudentScoreAVL
                 MessageBox.Show("Không tìm thấy sinh viên có ID này!");
                 return;
             }
-            SaveToCSV();
-            LoadCSVData();
+            BuildAVLFromList();
+            dataGridView1.DataSource = students.ToList();
             MessageBox.Show("Cập nhật thành công!");
         }
         private void btnXuatTang_Click(object sender, EventArgs e)
@@ -294,6 +268,7 @@ namespace StudentScoreAVL
                 MessageBox.Show("Vui lòng nhập tầng hợp lệ (số nguyên >= 0)!");
                 return;
             }
+            BuildAVLFromList(); 
             var nodes = avlTree.XepTang(level);
             if (nodes.Count == 0)
             {
@@ -345,10 +320,10 @@ namespace StudentScoreAVL
                     selectedStudents.Add(student);
                 }
             }
-            DGV2.DataSource = null;
-            DGV2.DataSource = selectedStudents;
-            dataGridView1.Visible = false;
-            DGV2.Visible = true;
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = selectedStudents;
+            
+            dataGridView1.Visible = true;
             tempTree = new AVLTree();
             foreach (var s in selectedStudents)
             {
@@ -362,25 +337,25 @@ namespace StudentScoreAVL
 
             if (treeToUse == null || treeToUse.Root == null)
             {
-                MessageBox.Show("Chưa có cây AVL! Hãy tạo cây trước (bằng cách Range Dòng hoặc Load CSV).");
+                MessageBox.Show("Chưa có cây AVL","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 return;
             }
 
             if (!int.TryParse(txtXuat.Text, out int tangCanXem) || tangCanXem < 0)
             {
-                MessageBox.Show("Vui lòng nhập số tầng hợp lệ (số nguyên >= 0)!");
+                MessageBox.Show("Vui lòng nhập số tầng hợp lệ (số nguyên >= 0)!","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 return;
             }
             var ketQua = treeToUse.XepTang(tangCanXem);
             if (ketQua.Count == 0)
             {
-                MessageBox.Show($"Không có node nào ở tầng {tangCanXem}");
-                DGV2.DataSource = null;
+                MessageBox.Show($"Không có node nào ở tầng {tangCanXem}","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                dataGridView1.DataSource = null;
                 return;
             }
-            dataGridView1.Visible = false;
-            DGV2.Visible = true;
-            DGV2.DataSource = ketQua.Select(s => new
+            dataGridView1.Visible = true;
+       
+            dataGridView1.DataSource = ketQua.Select(s => new
             {
                 s.ID,
                 s.Gender,
@@ -393,6 +368,213 @@ namespace StudentScoreAVL
                 s.WritingScore,
                 s.Van,
             }).ToList();
+        }
+        //Sắp xếp theo Key
+        private void cbbSapXep_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbbSapXep.SelectedItem == null) return;
+            string key = cbbSapXep.SelectedItem.ToString();
+            Func<Student, double> keySelector = null;
+            switch (key)
+            {
+                case "ID":
+                    keySelector = s => s.ID;
+                    break;
+                case "MathScore":
+                    keySelector = s => s.MathScore;
+                    break;
+                case "ReadingScore":
+                    keySelector = s => s.ReadingScore;
+                    break;
+                case "WritingScore":
+                    keySelector = s => s.WritingScore;
+                    break;
+                case "Điểm TB":
+                    keySelector = s => s.TB;
+                    break;
+            }
+            if (keySelector == null) return;
+            avlTree.XayCay(keySelector, out CAYKHONGTRUNG, out CAYBITRUNG);
+            LoadCayDangChon();
+        }
+        private void LoadCayDangChon()
+        {
+            if (CAYKHONGTRUNG == null || CAYBITRUNG == null)
+                return;
+
+            AVLTree cayHienThi = radKhongTrung.Checked ? CAYKHONGTRUNG : CAYBITRUNG;
+
+            string key = cbbSapXep.SelectedItem?.ToString();
+
+            var data = cayHienThi.InOrderTraversal();
+            switch (key)
+            {
+                case "ID": data = data.OrderBy(s => s.ID).ToList(); break;
+                case "MathScore": data = data.OrderBy(s => s.MathScore).ToList(); break;
+                case "ReadingScore": data = data.OrderBy(s => s.ReadingScore).ToList(); break;
+                case "WritingScore": data = data.OrderBy(s => s.WritingScore).ToList(); break;
+                case "Điểm TB": data = data.OrderBy(s => s.TB).ToList(); break;
+            }
+            dataGridView1.DataSource = data;
+        }
+
+        private void radKhongTrung_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radKhongTrung.Checked)
+                LoadCayDangChon();
+        }
+
+        private void radTrung_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radTrung.Checked)
+                LoadCayDangChon();
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            Student hs = dataGridView1.Rows[e.RowIndex].DataBoundItem as Student;
+            if (hs == null) return;
+
+            txtSearch.Text = hs.ID.ToString();
+            CbbGender.Text = hs.Gender;
+            txtRace.Text = hs.RaceEthnicity;
+            txtEducation.Text = hs.ParentalEducation;
+            txtLunch.Text = hs.Lunch;
+            txtTest.Text = hs.TestPreparationCourse;
+            txtMath.Text = hs.MathScore.ToString();
+            txtReading.Text = hs.ReadingScore.ToString();
+            txtWriting.Text = hs.WritingScore.ToString();
+        }
+
+        private void btnThongKeNodeTrung_Click(object sender, EventArgs e)
+        {
+            if (cbbSapXep.SelectedItem == null)
+            {
+                MessageBox.Show("Chưa chọn key để thống kê!","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                return;
+            }
+
+            string key = cbbSapXep.SelectedItem.ToString();
+            Func<Student, double> keySelector = null;
+
+            switch (key)
+            {
+                case "ID":
+                    keySelector = s => s.ID; 
+                    break;
+                case "MathScore": 
+                    keySelector = s => s.MathScore; 
+                    break;
+                case "ReadingScore": 
+                    keySelector = s => s.ReadingScore; 
+                    break;
+                case "WritingScore": 
+                    keySelector = s => s.WritingScore; 
+                    break;
+                case "Điểm TB": 
+                    keySelector = s => s.TB; 
+                    break;
+            }
+
+            if (keySelector == null) return;
+
+            var list = avlTree.InOrderTraversal()
+                              .GroupBy(x => keySelector(x))
+                              .Where(g => g.Count() > 1)//lấy trùng
+                              .Select(g => new
+                              {
+                                  Key = g.Key,
+                                  Count = g.Count()-1
+                              }).OrderBy(x => x.Key)
+                              .ToList();
+
+            if (list.Count == 0)
+            {
+                MessageBox.Show("Không có giá trị bị trùng!");
+                return;
+            }
+            dataGridView1.DataSource = list;
+        }
+
+        private void btnTrolai_Click(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = students.ToList();
+            BuildAVLFromList();
+        }
+
+        private void btnKiemKe_Click(object sender, EventArgs e)
+        {
+            if (CAYKHONGTRUNG == null || CAYBITRUNG == null)
+            {
+                MessageBox.Show("Chưa tách cây theo key!", "Thông báo",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int soNodeKhongTrung = CAYKHONGTRUNG.InOrderTraversal().Count;
+            int soNodeBiTrung = CAYBITRUNG.InOrderTraversal().Count;
+
+            MessageBox.Show( $"Số node cây không trùng: {soNodeKhongTrung}\n" +$"Số node cây trùng: {soNodeBiTrung}","Kết quả thống kê node",MessageBoxButtons.OK);
+        }
+
+        private void btnItNhieu_Click(object sender, EventArgs e)
+        {
+            if (cbbSapXep.SelectedItem == null)
+            {
+                MessageBox.Show("Chưa chọn key!");
+                return;
+            }
+
+            Func<Student, double> keySelector = null;
+            string key = cbbSapXep.SelectedItem.ToString();
+
+            switch (key)
+            {
+                case "ID":
+                    keySelector = s => s.ID;
+                    break;
+                case "MathScore":
+                    keySelector = s => s.MathScore;
+                    break;
+                case "ReadingScore":
+                    keySelector = s => s.ReadingScore;
+                    break;
+                case "WritingScore":
+                    keySelector = s => s.WritingScore;
+                    break;
+                case "Điểm TB":
+                    keySelector = s => s.TB;
+                    break;
+                default:
+                    keySelector = null;
+                    break;
+            }
+
+            if (keySelector == null) return;
+
+            var dup = avlTree.InOrderTraversal()
+                .GroupBy(x => keySelector(x))
+                .Select(g => new { Key = g.Key, Count = g.Count() - 1 })
+                .Where(x => x.Count > 0)
+                .OrderBy(x => x.Count).ToList();
+
+            if (dup.Count == 0) { MessageBox.Show("Không có node trùng!"); return; }
+            if (dup.Count == 1)
+            {
+                var only = dup[0];
+                MessageBox.Show(
+                    $"Chỉ có 1 giá trị bị trùng:\n" +
+                    $"Giá trị {only.Key} trùng {only.Count} lần\n" +
+                    $"(Node trùng ít nhất: Không có)");
+                return;
+            }
+            var min = dup.First();  // ít nhất
+            var max = dup.Last();   // nhiều nhất
+            MessageBox.Show(
+                $"Node trùng nhiều nhất: {max.Key} → {max.Count} lần\n" +
+                $"Node trùng ít nhất: {min.Key} → {min.Count} lần","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
     }
 }
