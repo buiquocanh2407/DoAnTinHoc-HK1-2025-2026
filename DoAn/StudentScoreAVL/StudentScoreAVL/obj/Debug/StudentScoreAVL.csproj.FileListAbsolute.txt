@@ -20,3 +20,6 @@ D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\obj\Debug\StudentScoreAVL.csp
 D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\obj\Debug\StudentScoreAVL.csproj.CoreCompileInputs.cache
 D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\obj\Debug\StudentScoreAVL.exe
 D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\obj\Debug\StudentScoreAVL.pdb
+D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\bin\Debug\Newtonsoft.Json.dll
+D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\bin\Debug\Newtonsoft.Json.xml
+D:\DoAnTinHoc\DoAn\StudentScoreAVL\StudentScoreAVL\obj\Debug\StudentS.1F578CA7.Up2Date

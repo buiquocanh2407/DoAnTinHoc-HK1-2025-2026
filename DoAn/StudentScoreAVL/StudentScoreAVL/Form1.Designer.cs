@@ -83,6 +83,7 @@
             this.btnTrolai = new System.Windows.Forms.Button();
             this.btnKiemKe = new System.Windows.Forms.Button();
             this.btnItNhieu = new System.Windows.Forms.Button();
+            this.btnXuatJson = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -219,7 +220,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(397, 11);
+            this.btnDelete.Location = new System.Drawing.Point(308, 292);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(105, 23);
             this.btnDelete.TabIndex = 3;
@@ -229,7 +230,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(116, 292);
+            this.btnAdd.Location = new System.Drawing.Point(70, 292);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(113, 23);
             this.btnAdd.TabIndex = 4;
@@ -396,7 +397,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(235, 292);
+            this.btnUpdate.Location = new System.Drawing.Point(189, 292);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(113, 23);
             this.btnUpdate.TabIndex = 25;
@@ -572,7 +573,7 @@
             // 
             // btnKiemKe
             // 
-            this.btnKiemKe.Location = new System.Drawing.Point(633, 231);
+            this.btnKiemKe.Location = new System.Drawing.Point(596, 67);
             this.btnKiemKe.Name = "btnKiemKe";
             this.btnKiemKe.Size = new System.Drawing.Size(75, 23);
             this.btnKiemKe.TabIndex = 44;
@@ -582,7 +583,7 @@
             // 
             // btnItNhieu
             // 
-            this.btnItNhieu.Location = new System.Drawing.Point(811, 226);
+            this.btnItNhieu.Location = new System.Drawing.Point(678, 67);
             this.btnItNhieu.Name = "btnItNhieu";
             this.btnItNhieu.Size = new System.Drawing.Size(75, 23);
             this.btnItNhieu.TabIndex = 45;
@@ -590,11 +591,22 @@
             this.btnItNhieu.UseVisualStyleBackColor = true;
             this.btnItNhieu.Click += new System.EventHandler(this.btnItNhieu_Click);
             // 
+            // btnXuatJson
+            // 
+            this.btnXuatJson.Location = new System.Drawing.Point(1264, 250);
+            this.btnXuatJson.Name = "btnXuatJson";
+            this.btnXuatJson.Size = new System.Drawing.Size(75, 23);
+            this.btnXuatJson.TabIndex = 46;
+            this.btnXuatJson.Text = "Xuất Json";
+            this.btnXuatJson.UseVisualStyleBackColor = true;
+            this.btnXuatJson.Click += new System.EventHandler(this.btnXuatJson_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1340, 546);
+            this.Controls.Add(this.btnXuatJson);
             this.Controls.Add(this.btnItNhieu);
             this.Controls.Add(this.btnKiemKe);
             this.Controls.Add(this.btnTrolai);
@@ -704,6 +716,7 @@
         private System.Windows.Forms.Button btnTrolai;
         private System.Windows.Forms.Button btnKiemKe;
         private System.Windows.Forms.Button btnItNhieu;
+        private System.Windows.Forms.Button btnXuatJson;
     }
 }
 

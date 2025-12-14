@@ -9,12 +9,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 
 namespace StudentScoreAVL
 {
     public partial class MainForm : Form
     {
+        
         string DataFilePath = "StudentsPerformance.csv";
         AVLTree CAYKHONGTRUNG;
         AVLTree CAYBITRUNG;
@@ -62,8 +64,8 @@ namespace StudentScoreAVL
             
         }
         //Lưu
-            private void SaveToCSV(string path)
-            {
+        private void SaveToCSV(string path)
+        {
             using (StreamWriter w = new StreamWriter(path))
             {
                 w.WriteLine("ID,Gender,RaceEthnicity,ParentalEducation,Lunch,TestPreparationCourse,MathScore,ReadingScore,WritingScore,Van");
@@ -72,8 +74,40 @@ namespace StudentScoreAVL
                     w.WriteLine($"{s.ID},{s.Gender},{s.RaceEthnicity},{s.ParentalEducation},{s.Lunch},{s.TestPreparationCourse},{s.MathScore},{s.ReadingScore},{s.WritingScore},{s.Van}");
                 }
             }
-            MessageBox.Show("Lưu thành công","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            MessageBox.Show("Lưu thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        private void LuuJson(AVLTree tree, string fileName)
+        {
+            if (tree == null || tree.Root == null)
+            {
+                MessageBox.Show("Cây rỗng, không có dữ liệu để xuất!",
+                                "Thông báo",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return;
             }
+
+            var data = tree.InOrderTraversal();
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "JSON files (*.json)|*.json";
+            sfd.FileName = fileName;
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                string json = JsonConvert.SerializeObject(
+                    data,
+                    Formatting.Indented
+                );
+
+                File.WriteAllText(sfd.FileName, json, Encoding.UTF8);
+
+                MessageBox.Show("Xuất JSON thành công!",
+                                "Thông báo",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+            }
+        }
         private void btnluu_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -117,12 +151,12 @@ namespace StudentScoreAVL
             {
                 if (string.IsNullOrWhiteSpace(txtSearch.Text))
                 {
-                    MessageBox.Show("Vui lòng nhập ID học sinh!");
+                    MessageBox.Show("Vui lòng nhập ID học sinh!","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     return;
                 }
                 if (!int.TryParse(txtSearch.Text, out int newID))
                 {
-                    MessageBox.Show("ID phải là số!");
+                    MessageBox.Show("ID phải là số!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 if (avlTree.Search(newID) != null)
@@ -139,14 +173,14 @@ namespace StudentScoreAVL
                     string.IsNullOrWhiteSpace(txtReading.Text) ||
                     string.IsNullOrWhiteSpace(txtWriting.Text))
                 {
-                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin học sinh!");
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin học sinh!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 if (!double.TryParse(txtMath.Text, out double math) ||
                     !double.TryParse(txtReading.Text, out double reading) ||
                     !double.TryParse(txtWriting.Text, out double writing))
                 {
-                    MessageBox.Show("Điểm phải là số!");
+                    MessageBox.Show("Điểm phải là số!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 Student sd = new Student
@@ -164,11 +198,11 @@ namespace StudentScoreAVL
                 students.Add(sd);
                 BuildAVLFromList();
                 dataGridView1.DataSource = students.ToList();
-                MessageBox.Show("✔️ Thêm học sinh thành công!");
+                MessageBox.Show("Thêm học sinh thành công!","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi thêm học sinh: {ex.Message}");
+                MessageBox.Show($"Lỗi khi thêm học sinh: {ex.Message}","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
         }
         //Xóa
@@ -176,19 +210,19 @@ namespace StudentScoreAVL
         {
             if (string.IsNullOrWhiteSpace(txtSearch.Text))
             {
-                MessageBox.Show("Vui lòng nhập ID học sinh cần xóa!");
+                MessageBox.Show("Vui lòng nhập ID học sinh cần xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (!int.TryParse(txtSearch.Text.Trim(), out int id))
             {
-                MessageBox.Show("ID phải là số nguyên!");
+                MessageBox.Show("ID phải là số nguyên!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             var student = students.FirstOrDefault(s => s.ID == id);
             if (student == null)
             {
-                MessageBox.Show("Không tìm thấy học sinh có ID này!");
+                MessageBox.Show("Không tìm thấy học sinh có ID này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -224,19 +258,19 @@ namespace StudentScoreAVL
         {
             if (string.IsNullOrWhiteSpace(txtSearch.Text))
             {
-                MessageBox.Show("Vui lòng nhập ID sinh viên cần sửa!");
+                MessageBox.Show("Vui lòng nhập ID sinh viên cần sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (!int.TryParse(txtSearch.Text.Trim(), out int id))
             {
-                MessageBox.Show("ID phải là số!");
+                MessageBox.Show("ID phải là số!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (!double.TryParse(txtMath.Text, out double math) ||
                 !double.TryParse(txtReading.Text, out double reading) ||
                 !double.TryParse(txtWriting.Text, out double writing))
             {
-                MessageBox.Show("Điểm phải là số hợp lệ!");
+                MessageBox.Show("Điểm phải là số hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             Student updated = new Student
@@ -254,25 +288,25 @@ namespace StudentScoreAVL
             bool ok = avlTree.Sua(updated);
             if (!ok)
             {
-                MessageBox.Show("Không tìm thấy sinh viên có ID này!");
+                MessageBox.Show("Không tìm thấy sinh viên có ID này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             BuildAVLFromList();
             dataGridView1.DataSource = students.ToList();
-            MessageBox.Show("Cập nhật thành công!");
+            MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         private void btnXuatTang_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(txtXuatTang.Text.Trim(), out int level))
             {
-                MessageBox.Show("Vui lòng nhập tầng hợp lệ (số nguyên >= 0)!");
+                MessageBox.Show("Vui lòng nhập tầng hợp lệ (số nguyên >= 0)!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             BuildAVLFromList(); 
             var nodes = avlTree.XepTang(level);
             if (nodes.Count == 0)
             {
-                MessageBox.Show($"Không có node nào ở tầng {level}!");
+                MessageBox.Show($"Không có node nào ở tầng {level}!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             dataGridView1.DataSource = nodes;
@@ -288,29 +322,29 @@ namespace StudentScoreAVL
         {
             if (!int.TryParse(txtRangeDongDau.Text.Trim(), out int dongbatdau) || dongbatdau <= 0)
             {
-                MessageBox.Show("Vui lòng nhập số dòng hợp lệ!");
+                MessageBox.Show("Vui lòng nhập số dòng hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (!int.TryParse(RangeDongCuoi.Text.Trim(), out int enddong) || enddong <= 0 || enddong > dataGridView1.Rows.Count)
             {
-                MessageBox.Show("Vui lòng nhập Dòng Kết Thúc hợp lệ (số nguyên > 0)!");
+                MessageBox.Show("Vui lòng nhập Dòng Kết Thúc hợp lệ (số nguyên > 0)!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (dataGridView1.Rows.Count == 0)
             {
-                MessageBox.Show("Không có dữ liệu trong bảng chính!");
+                MessageBox.Show("Không có dữ liệu trong bảng chính!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             List<Student> selectedStudents = new List<Student>();
             int batdau = dongbatdau - 1;
             if (batdau > dataGridView1.Rows.Count || batdau < 0)
             {
-                MessageBox.Show("Chỉ số không hợp lệ.");
+                MessageBox.Show("Chỉ số không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (dongbatdau > enddong)
             {
-                MessageBox.Show("Dòng bắt đầu không được lớn hơn dòng kết thúc.");
+                MessageBox.Show("Dòng bắt đầu không được lớn hơn dòng kết thúc.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             for (int i = batdau; i < enddong; i++)
@@ -575,6 +609,42 @@ namespace StudentScoreAVL
             MessageBox.Show(
                 $"Node trùng nhiều nhất: {max.Key} → {max.Count} lần\n" +
                 $"Node trùng ít nhất: {min.Key} → {min.Count} lần","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Information);
+        }
+
+        private void btnXuatJson_Click(object sender, EventArgs e)
+        {
+            if (CAYKHONGTRUNG == null || CAYBITRUNG == null)
+            {
+                MessageBox.Show("Chưa có dữ liệu cây. Vui lòng chọn key để tách cây trước!",
+                                "Thông báo",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return;
+            }
+
+            DialogResult result = MessageBox.Show(
+                "Bạn muốn xuất dữ liệu nào?\n\n" +
+                "Yes  → Cây không trùng\n" +
+                "No   → Cây bị trùng\n" +
+                "Cancel → Cả hai cây",
+                "Chọn loại cây cần xuất",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                LuuJson(CAYKHONGTRUNG, "Cay_Khong_Trung.json");
+            }
+            else if (result == DialogResult.No)
+            {
+                LuuJson(CAYBITRUNG, "Cay_Bi_Trung.json");
+            }
+            else if (result == DialogResult.Cancel)
+            {
+                LuuJson(CAYKHONGTRUNG, "Cay_Khong_Trung.json");
+                LuuJson(CAYBITRUNG, "Cay_Bi_Trung.json");
+            }
         }
     }
 }
